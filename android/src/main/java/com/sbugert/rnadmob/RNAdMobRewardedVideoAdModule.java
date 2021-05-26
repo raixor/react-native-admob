@@ -63,10 +63,7 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
     @Override
     public void onRewardedVideoAdLoaded() {
         sendEvent(EVENT_AD_LOADED, null);
-        if (mRequestAdPromise != null) {
-          mRequestAdPromise.resolve(null);
-          mRequestAdPromise = null;
-        }
+        mRequestAdPromise.resolve(null);
     }
 
     @Override
@@ -89,7 +86,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         sendEvent(EVENT_AD_LEFT_APPLICATION, null);
     }
 
-    @Override
     public void onRewardedVideoCompleted() {
         sendEvent(EVENT_VIDEO_COMPLETED, null);
     }
@@ -120,10 +116,7 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         WritableMap error = Arguments.createMap();
         event.putString("message", errorMessage);
         sendEvent(EVENT_AD_FAILED_TO_LOAD, event);
-        if (mRequestAdPromise != null) {
-          mRequestAdPromise.reject(errorString, errorMessage);
-          mRequestAdPromise = null;
-        }
+        mRequestAdPromise.reject(errorString, errorMessage);
     }
 
     private void sendEvent(String eventName, @Nullable WritableMap params) {
@@ -180,7 +173,7 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                if (mRewardedVideoAd != null && mRewardedVideoAd.isLoaded()) {
+                if (mRewardedVideoAd.isLoaded()) {
                     mRewardedVideoAd.show();
                     promise.resolve(null);
                 } else {
@@ -195,11 +188,7 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                if (mRewardedVideoAd != null) {
-                    callback.invoke(mRewardedVideoAd.isLoaded());
-                } else {
-                    callback.invoke(false);
-                }
+                callback.invoke(mRewardedVideoAd.isLoaded());
             }
         });
     }

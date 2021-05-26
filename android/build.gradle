@@ -1,16 +1,12 @@
 apply plugin: 'com.android.library'
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 23)
-    buildToolsVersion safeExtGet('buildToolsVersion', "23.0.1")
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion safeExtGet('targetSdkVersion', 22)
+        targetSdkVersion 22
     }
     buildTypes {
         release {
@@ -21,6 +17,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
-    implementation 'com.google.android.gms:play-services-ads:+'
+    compile 'com.facebook.react:react-native:+'
+    compile 'com.google.android.gms:play-services-ads:15.0.1'
 }
